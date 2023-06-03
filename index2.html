@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Color Chooser</title>
+  <style>
+    canvas {
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+    }
+    #color-chooser {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 200px;
+      height: 200px;
+      background: #ffffff;
+      padding: 10px;
+    }
+    .color-option {
+      width: 30px;
+      height: 30px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="color-chooser">
+    <div class="color-option" style="background-color: #ff0000;"></div>
+    <div class="color-option" style="background-color: #00ff00;"></div>
+    <div class="color-option" style="background-color: #0000ff;"></div>
+    <div class="color-option" style="background-color: #ffff00;"></div>
+    <div class="color-option" style="background-color: #ff00ff;"></div>
+    <div class="color-option" style="background-color: #00ffff;"></div>
+  </div>
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      var canvas = document.createElement('canvas');
+      document.body.appendChild(canvas);
+      
+      var engine = new BABYLON.Engine(canvas, true);
+
+      var createScene = function () {
+        var scene = new BABYLON.Scene(engine);
+
+        // Create a default camera
+        var camera = new BABYLON.ArcRotateCamera('camera', 0, 0, 10, BABYLON.Vector3.Zero(), scene);
+        camera.attachControl(canvas, true);
+
+        // Create a light
+        var light = new BABYLON.HemisphericLight('light', new BABYLON.Vector3(0, 1, 0), scene);
+
+        // Create a square model
+        var squareSize = 2;
+        var square = BABYLON.MeshBuilder.CreateBox('square', { size: squareSize }, scene);
+        square.position.y = squareSize / 2;
+
+        return scene;
+      };
+
+      var scene = createScene();
+
+      engine.runRenderLoop(function () {
+        scene.render();
+      });
+
+      window.addEventListener('resize', function () {
+        engine.resize();
+      });
+
+      var colorOptions = document.getElementsByClassName('color-option');
+      for (var i = 0; i < colorOptions.length; i++) {
+        colorOptions[i].addEventListener('click', function () {
+          var color = this.style.backgroundColor;
+          // Apply the selected color to the square model
+          scene.getMeshByName('square').material = new BABYLON.StandardMaterial('squareMaterial', scene);
+          scene.getMeshByName('square').material.diffuseColor = BABYLON.Color3.FromHexString(color);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
