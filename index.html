@@ -1,38 +1,28 @@
-<!DOCTYPE html>
+      <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Color Chooser</title>
-  <style>
-    canvas {
-      width: 100%;
-      height: 100%;
-      touch-action: none;
-    }
-    #color-chooser {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      width: 200px;
-      height: 200px;
-      background: #ffffff;
-      padding: 10px;
-    }
-    .color-option {
-      width: 30px;
-      height: 30px;
-      margin: 5px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="utf-8">
+    <title>Babylon.js Example</title>
+    <style>
+        canvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
 </head>
 <body>
-  <div id="color-chooser">
+    <canvas id="renderCanvas"></canvas>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function(){
+            var canvas = document.getElementById('renderCanvas');
+            var engine = new BABYLON.Engine(canvas, true);
 
-  </div>
-  <script src="https://cdn.babylonjs.com/babylon.js"></script>
-  <script>
             var createScene = async function () {
+
+	  var createScene = async function () {
     // This creates a basic Babylon Scene object (non-mesh)
     var scene = new BABYLON.Scene(engine);
 
@@ -67,7 +57,7 @@
 
     // Load a GUI from the snippet server.
     let advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("GUI", true, scene);  
-    let loadedGUI = await advancedTexture.parseFromSnippetAsync("#MMWSUI#5");
+    let loadedGUI = await advancedTexture.parseFromSnippetAsync("#5AGDTV");
 
     // Set the ideal W and H if you wish to scale with the window.
     advancedTexture.idealWidth = 1024;  
@@ -234,6 +224,25 @@
 
     return scene;
 };
-  </script>
+
+return scene;
+            };
+
+            var scene = createScene();
+
+            engine.runRenderLoop(function () {
+                scene.render();
+            });
+
+            window.addEventListener('resize', function(){
+                engine.resize();
+            });
+        });
+    </script>
 </body>
 </html>
+
+
+
+
+
