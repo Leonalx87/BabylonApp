@@ -1,4 +1,4 @@
-      <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -21,58 +21,57 @@
             var engine = new BABYLON.Engine(canvas, true);
 
             var createScene = async function () {
+                // This creates a basic Babylon Scene object (non-mesh)
+                var scene = new BABYLON.Scene(engine);
 
-	  var createScene = async function () {
-    // This creates a basic Babylon Scene object (non-mesh)
-    var scene = new BABYLON.Scene(engine);
+                // This creates and positions a free camera (non-mesh)
+                var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
 
-    // This creates and positions a free camera (non-mesh)
-    var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+                // This targets the camera to scene origin
+                camera.setTarget(BABYLON.Vector3.Zero());
 
-    // This targets the camera to scene origin
-    camera.setTarget(BABYLON.Vector3.Zero());
+                // This attaches the camera to the canvas
+                camera.attachControl(canvas, true);
 
-    // This attaches the camera to the canvas
-    camera.attachControl(canvas, true);
+                // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+                var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
 
-    // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+                // Default intensity is 1. Let's dim the light a small amount
+                light.intensity = 0.7;
 
-    // Default intensity is 1. Let's dim the light a small amount
-    light.intensity = 0.7;
+                // Our built-in 'sphere' shape
+                var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2, segments: 32 }, scene);
 
-    // Our built-in 'sphere' shape.
-    var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 2, segments: 32}, scene);
+                // Move the sphere upward 1/2 its height
+                sphere.position.y = 1;
 
-    // Move the sphere upward 1/2 its height
-    sphere.position.y = 1;
+                // Our built-in 'ground' shape
+                var ground = BABYLON.MeshBuilder.CreateGround("ground", { width: 6, height: 6 }, scene);
 
-    // Our built-in 'ground' shape.
-    var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 6, height: 6}, scene);
-    
-    // Set the material of the sphere.
-    var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
-    myMaterial.diffuseColor = new BABYLON.Color3.FromHexString("#1B97C2");
-    sphere.material = myMaterial;
+                // Set the material of the sphere
+                var myMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
+                myMaterial.diffuseColor = new BABYLON.Color3.FromHexString("#1B97C2");
+                sphere.material = myMaterial;
 
-    // Load a GUI from the snippet server.
-    let advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("GUI", true, scene);  
-    let loadedGUI = await advancedTexture.parseFromSnippetAsync("#5AGDTV");
+                // Load a GUI from the snippet server
+                let advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("GUI", true, scene);
+                let loadedGUI = await advancedTexture.parseFromSnippetAsync("#5AGDTV");
 
-    // Set the ideal W and H if you wish to scale with the window.
-    advancedTexture.idealWidth = 1024;  
-    advancedTexture.idealHeight = 1024;
+                // Set the ideal W and H if you wish to scale with the window
+                advancedTexture.idealWidth = 1024;
+                advancedTexture.idealHeight = 1024;
 
-    // Get a control by name a change a property.
-    let backgroundBox = advancedTexture.getControlByName("BackgroundBox");
-    backgroundBox.isVisible = false;
-    
-    let colorPickerButton = advancedTexture.getControlByName("ColorPickerButton");
-    colorPickerButton.onPointerClickObservable.add( () => {  
-        backgroundBox.isVisible = true;
-        colorPickerButton.isVisible = false;
-    });
-;
+                // Get controls by name and change properties
+                let backgroundBox = advancedTexture.getControlByName("BackgroundBox");
+                backgroundBox.isVisible = false;
+
+                let colorPickerButton = advancedTexture.getControlByName("ColorPickerButton");
+                colorPickerButton.onPointerClickObservable.add(() => {
+                    backgroundBox.isVisible = true;
+                    colorPickerButton.isVisible = false;
+                });
+
+               ;
     let colorPicker = advancedTexture.getControlByName("ColorPicker");
     let okButton = advancedTexture.getControlByName("OkButton");
     let cancelButton = advancedTexture.getControlByName("CancelButton");
@@ -222,10 +221,7 @@
         currentColor.background = currentColorValue.toHexString();
     });
 
-    return scene;
-};
-
-return scene;
+                return scene;
             };
 
             var scene = createScene();
@@ -241,8 +237,3 @@ return scene;
     </script>
 </body>
 </html>
-
-
-
-
-
