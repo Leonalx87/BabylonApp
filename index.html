@@ -28,12 +28,7 @@
 </head>
 <body>
   <div id="color-chooser">
-    <div class="color-option" style="background-color: #ff0000;"></div>
-    <div class="color-option" style="background-color: #00ff00;"></div>
-    <div class="color-option" style="background-color: #0000ff;"></div>
-    <div class="color-option" style="background-color: #ffff00;"></div>
-    <div class="color-option" style="background-color: #ff00ff;"></div>
-    <div class="color-option" style="background-color: #00ffff;"></div>
+
   </div>
   <script src="https://cdn.babylonjs.com/babylon.js"></script>
   <script>
@@ -72,7 +67,7 @@
 
     // Load a GUI from the snippet server.
     let advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("GUI", true, scene);  
-    let loadedGUI = await advancedTexture.parseFromSnippetAsync("#5AGDTV");
+    let loadedGUI = await advancedTexture.parseFromSnippetAsync("#MMWSUI#5");
 
     // Set the ideal W and H if you wish to scale with the window.
     advancedTexture.idealWidth = 1024;  
